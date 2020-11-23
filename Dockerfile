@@ -1,11 +1,18 @@
 # Base our image on an official, minimal image of our preferred Ruby
-FROM python:3.7.5-slim
+FROM python:3.9.0-slim
 
 # Install essential Linux packages
-#RUN apt-get update -qq && apt-get install -y build-essential libpq-dev postgresql-client libsqlite3-dev
+RUN apt-get update
+RUN apt-get install -y curl
+
+RUN pip install --upgrade pip
+RUN pip install flask
 
 # Define where our application will live inside the image
 ENV APP_ROOT /var/www/grocery-list
+ENV FLASK_ENV=development
+ENV FLASK_APP=flaskr
+ENV SECRET_KEY=development-secret-key
 
 # Set our working directory inside the image
 WORKDIR $APP_ROOT
@@ -26,4 +33,4 @@ WORKDIR $APP_ROOT
 # Copy the application into place
 COPY . .
 
-CMD ["python app.py"]
+CMD python -m flask run --host=0.0.0.0
