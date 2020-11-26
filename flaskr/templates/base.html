@@ -1,10 +1,10 @@
 <!doctype html>
-<title>{% block title %}{% endblock %} - Flaskr</title>
+<title>{% block title %}{% endblock %}</title>
 <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 <nav>
   <h1>Flaskr</h1>
   <ul>
-      <li><a href="{{ url_for('ingredients.index') }}">Ingredients</a></li>
+      <li><a href="{{ url_for('items.index') }}">Items</a></li>
   </ul>
 </nav>
 <section class="content">

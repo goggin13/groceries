@@ -32,7 +32,7 @@ def create_app(test_config=None):
     from . import db
     db.init_app(app)
 
-    from . import ingredients
-    app.register_blueprint(ingredients.bp)
+    from . import items
+    app.register_blueprint(items.bp)
 
     return app
