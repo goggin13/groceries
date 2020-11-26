@@ -5,3 +5,4 @@ groceries.egg-info/
 groceries/__pycache__/
 __pycache__/
 flaskr.egg-info/
+.idea/
