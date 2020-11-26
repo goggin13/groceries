@@ -7,7 +7,7 @@ else
 		-it \
     -p 3000:3000 \
 		--name grocery-list-console \
-		-v $HOME/Documents/projects/grocery-list:/var/www/grocery-list \
+		-v $HOME/Desktop/github/groceries:/var/www/grocery-list \
 		--rm \
 		goggin13/grocery-list \
 		bash
