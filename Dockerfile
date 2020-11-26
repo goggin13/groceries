@@ -9,7 +9,7 @@ RUN pip install pytest
 
 ENV APP_ROOT /var/www/grocery-list
 ENV FLASK_ENV=development
-ENV FLASK_APP=flaskr
+ENV FLASK_APP=groceries
 ENV SECRET_KEY=development-secret-key
 
 WORKDIR $APP_ROOT

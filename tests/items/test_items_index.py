@@ -1,5 +1,5 @@
 import pytest
-from flaskr.db import get_db
+from groceries.db import get_db
 
 def test_index_displays_items(client):
     response = client.get('/items')

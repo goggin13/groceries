@@ -1,5 +1,5 @@
 import pytest
-from flaskr.db import get_db
+from groceries.db import get_db
 
 def test_update_displays_item(client):
     response = client.get('/items/1')

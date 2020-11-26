@@ -1,6 +1,7 @@
 *.pyc
 __pycache__/
 instance/
-flaskr.egg-info/
-flaskr/__pycache__/
+groceries.egg-info/
+groceries/__pycache__/
 __pycache__/
+flaskr.egg-info/
