@@ -1,3 +1,3 @@
 import groceries
 
-app = groceries.create_app
+app = groceries.create_app()
