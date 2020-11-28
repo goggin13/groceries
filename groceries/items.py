@@ -4,6 +4,8 @@ from flask import (
     Blueprint, flash, g, redirect, render_template, request, session, url_for
 )
 from groceries.db import get_db
+from groceries.categories import get_categories
+
 bp = Blueprint('items', __name__, url_prefix='/items')
 
 @bp.route('', methods=('GET',))
@@ -14,6 +16,8 @@ def index():
 def create():
     if request.method == 'POST':
         item_name = request.form['item_name'].strip()
+        # category_list = get_categories()
+        # category_name = request.form['category_name'].strip()
         db = get_db()
         error = None
 
@@ -31,7 +35,7 @@ def create():
         else:
             flash(error)
 
-    return render_template('items/index.html', items=items())
+    return render_template('items/index.html', items=items()) #, category_list=category_list
 
 @bp.route('/<int:id>', methods=('GET', 'POST'))
 def update(id):

@@ -5,10 +5,20 @@
 {% endblock %}
 
 {% block content %}
+{#  <div>    <p>Here is my category_list: {{ category_list }}</p></div>#}
   <form method="post">
     <label for="item_name">Item</label>
     <input name="item_name" id="item_name" required>
+
+{#    <select name="category_list" method="GET" action="/">#}
+{#      <option value="{{category_list[0]}}" selected>{{category_list[0]}}</option>#}
+{#      {% for category in category_list[1:] %}#}
+{#        <option value="{{category}}">{{category}}</option>#}
+{#      {% endfor %}#}
+{#    </select>#}
     <input type="submit" value="Create">
+
+
   </form>
 
 	{% for item in items %}
@@ -18,3 +28,6 @@
 	</p>
 	{% endfor %}
 {% endblock %}
+
+
+

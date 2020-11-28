@@ -61,5 +61,10 @@ def get_category(id):
         ' WHERE I.id = ?',
         (id,)
     ).fetchone()
-
     return category
+
+def get_categories():
+    category_list = get_db().execute(
+        'SELECT name from categories').fetchall()
+    return category_list
+
