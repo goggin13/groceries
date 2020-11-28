@@ -14,7 +14,7 @@
 	{% for category in categories %}
 	<p>
 		{{ category['name'] }}
-		<a class="action" href="{{ url_for('category.update', id=item['id']) }}">Edit</a>
+		<a class="action" href="{{ url_for('categories.update', id=category['id']) }}">Edit</a>
 	</p>
 	{% endfor %}
 {% endblock %}

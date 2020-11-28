@@ -7,7 +7,7 @@ def test_update_displays_category(client):
 
 def test_update_displays_delete_link(client):
     response = client.get('/categories/1')
-    assert b'action="/items/1/delete"' in response.data
+    assert b'action="/categories/1/delete"' in response.data
 
 def test_update_page_can_delete_an_category(client, db):
     old_count = db.execute('select count(id) from categories').fetchone()[0]

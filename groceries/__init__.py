@@ -32,7 +32,8 @@ def create_app(test_config=None):
     from . import db
     db.init_app(app)
 
-    from . import items
+    from . import items, categories
     app.register_blueprint(items.bp)
+    app.register_blueprint(categories.bp)
 
     return app

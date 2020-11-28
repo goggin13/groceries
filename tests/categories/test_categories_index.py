@@ -30,21 +30,21 @@ def test_header_shows_count_of_categories(client, db):
 
 def test_cant_add_same_category_twice(client, db):
     old_count = db.execute('select count(id) from categories').fetchone()[0]
-    response = client.post('/categories', data={'item_name': 'dairy'})
+    response = client.post('/categories', data={'category_name': 'dairy'})
     new_count = db.execute('select count(id) from categories').fetchone()[0]
     assert new_count == old_count
     assert b'Category dairy is already listed.' in response.data
 
 def test_category_name_is_required(client, db):
     old_count = db.execute('select count(id) from categories').fetchone()[0]
-    response = client.post('/items', data={'item_name': ''})
+    response = client.post('/categories', data={'category_name': ''})
     new_count = db.execute('select count(id) from categories').fetchone()[0]
     assert new_count == old_count
     assert b'Category Name is required' in response.data
 
 def test_blank_category_names_are_rejected(client, db):
-    old_count = db.execute('select count(id) from items').fetchone()[0]
-    response = client.post('/items', data={'category_name': ' '})
-    new_count = db.execute('select count(id) from items').fetchone()[0]
+    old_count = db.execute('select count(id) from categories').fetchone()[0]
+    response = client.post('/categories', data={'category_name': ' '})
+    new_count = db.execute('select count(id) from categories').fetchone()[0]
     assert new_count == old_count
     assert b'Category Name is required' in response.data
