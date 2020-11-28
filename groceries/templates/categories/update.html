@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block header %}
-<h1>{% block title %}Edit Category "{{ item['id'] }}"{% endblock %}</h1>
+<h1>{% block title %}Edit Category "{{ category['id'] }}"{% endblock %}</h1>
 {% endblock %}
 
 {% block content %}
@@ -12,7 +12,7 @@
   <input type="submit" value="Save">
 </form>
 <hr>
-<form action="{{ url_for('category.delete', id=category['id']) }}" method="post">
+<form action="{{ url_for('categories.delete', id=category['id']) }}" method="post">
   <input class="danger" type="submit" value="Delete" onclick="return confirm('Are you sure?');">
 </form>
 {% endblock %}
