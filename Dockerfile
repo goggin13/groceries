@@ -15,4 +15,4 @@ ENV SECRET_KEY=development-secret-key
 WORKDIR $APP_ROOT
 COPY . .
 RUN pip install -e .
-CMD python -m flask run --host=0.0.0.0
+CMD python -m flask run --host=0.0.0.0 -p $PORT
