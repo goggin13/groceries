@@ -11,10 +11,10 @@
     <input type="submit" value="Create">
   </form>
 
-	{% for category in categories %}
-	<p>
-		{{ category['name'] }}
-		<a class="action" href="{{ url_for('categories.update', id=category['id']) }}">Edit</a>
-	</p>
-	{% endfor %}
+  {% for category in categories %}
+  <p>
+    {{ category['name'] }}
+    <a class="action" href="{{ url_for('categories.update', id=category['id']) }}">Edit</a>
+  </p>
+  {% endfor %}
 {% endblock %}
