@@ -42,25 +42,33 @@ def update(id):
 def delete(id):
     get_item(id)
     db = get_db()
-    db.execute('DELETE FROM items WHERE id = ?', (id,))
+    db.cursor().execute('DELETE FROM items WHERE id = %s', (id,))
     db.commit()
     return redirect(url_for('items.index'))
 
 def items():
-  db = get_db()
-  return db.execute(
+  cursor = get_db().cursor()
+  cursor.execute(
     'SELECT I.id, name'
     ' FROM items I'
     ' ORDER BY name DESC'
-  ).fetchall()
+  )
+  results = cursor.fetchall()
+
+  return map(tuple_to_dict, results)
 
 def get_item(id):
-    item = get_db().execute(
+    cursor = get_db().cursor()
+    cursor.execute(
         'SELECT I.id, name'
         ' FROM items I'
-        ' WHERE I.id = ?',
+        ' WHERE I.id = %s;',
         (id,)
-    ).fetchone()
+    )
+    item = cursor.fetchone()
 
-    return item
+    return tuple_to_dict(item)
+
+def tuple_to_dict(item):
+    return {"id": item[0], "name": item[1]}
 

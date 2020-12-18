@@ -16,3 +16,6 @@ pytest
 
 # visit http://localhost:5000/items in your browser
 # Add some items
+
+# Deploy
+Initial deploy:`heroku run python3 -m flask init-db`

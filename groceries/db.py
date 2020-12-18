@@ -1,31 +1,62 @@
 import sqlite3
 import click
+import psycopg2
+import urllib.parse as urlparse
+import os
 from flask import current_app, g
 from flask.cli import with_appcontext
 
+def get_heroku_db():
+    url = urlparse.urlparse(os.environ['DATABASE_URL'])
+    dbname = url.path[1:]
+    user = url.username
+    password = url.password
+    host = url.hostname
+    port = url.port
+
+    return psycopg2.connect(
+        dbname=dbname,
+        user=user,
+        password=password,
+        host=host,
+        port=port
+    )
+
+def get_local_db():
+    dbname = "docker"
+    user = "docker"
+    password = "docker"
+    host = "localhost"
+    port = 5432
+
+    return psycopg2.connect(
+        dbname=dbname,
+        user=user,
+        password=password,
+        host=host,
+        port=port
+    )
 
 def get_db():
-    if 'db' not in g:
-        g.db = sqlite3.connect(
-            current_app.config['DATABASE'],
-            detect_types=sqlite3.PARSE_DECLTYPES
-        )
-        g.db.row_factory = sqlite3.Row
+    if 'connection' not in g:
+        if 'DATABASE_URL' in os.environ:
+            g.connection = get_heroku_db()
+        else:
+            g.connection = get_local_db()
 
-    return g.db
-
+    return g.connection
 
 def close_db(e=None):
-    db = g.pop('db', None)
+    db = g.pop('connection', None)
 
     if db is not None:
         db.close()
 
 def init_db():
-    db = get_db()
+    connection = get_db()
+    connection.cursor().execute(open("groceries/schema.sql", "r").read())
+    connection.commit()
 
-    with current_app.open_resource('schema.sql') as f:
-        db.executescript(f.read().decode('utf8'))
 
 @click.command('init-db')
 @with_appcontext
@@ -37,3 +68,12 @@ def init_db_command():
 def init_app(app):
     app.teardown_appcontext(close_db)
     app.cli.add_command(init_db_command)
+
+def query(query):
+    connection = get_db()
+    cursor = connection.cursor()
+    cursor.execute(query)
+    result = cursor.fetchone()[0]
+    cursor.close()
+
+    return result
